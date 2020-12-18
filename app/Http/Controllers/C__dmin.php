@@ -14,7 +14,7 @@ class C__dmin extends Controller
      */
     public function index()
     {
-        return view('tamplate');
+        return view('admin/admin');
     }
 
     /**

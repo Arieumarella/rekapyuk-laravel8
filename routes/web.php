@@ -18,3 +18,7 @@ Route::get('/', function () {
 });
 
 Route::resource('admin', 'App\Http\Controllers\C__dmin');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home')->middleware('is_admin');
