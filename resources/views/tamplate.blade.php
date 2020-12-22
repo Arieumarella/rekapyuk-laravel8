@@ -49,7 +49,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ asset('#') }}index3.html" class="brand-link text-center">
-      <span class="brand-text font-weight-light"><h3>RekapYuk</h3></span>
+      <span class="brand-text font-weight-light"><h3><b>RekapYuk</b></h3></span>
     </a>
 
     <!-- Sidebar -->
@@ -57,10 +57,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('style/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('style/dist/img/jamet.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{ asset('style/') }}#" class="d-block">Mr. Pogung Oye.</a>
+          <a href="{{ asset('style/') }}#" class="d-block">Mr. Simen.</a>
         </div>
       </div>
 
@@ -70,6 +70,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li  class="nav-header"><b>MAIN MENU</b></li>
           <li class="nav-item">
             <a href="pages/gallery.html" class="nav-link">
               <i class="nav-icon fa fa-dashboard"></i>
@@ -109,12 +110,17 @@
           </li>
 
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="#" class="nav-link"
+            onclick="
+            event.preventDefault();
+            document.getElementById('logout').submit();
+            ">
               <i class="nav-icon fa fa-sign-out"></i>
               <p>
                 Log Out
               </p>
             </a>
+            <form id="logout" action="{{ route('logout') }}" method="POST">@csrf</form>
           </li>
 
         </ul>

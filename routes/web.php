@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Extension\Attributes\Node\Attributes;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@showLoginForm');
 
-Route::resource('admin', 'App\Http\Controllers\C__dmin');
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home')->middleware('is_admin');
+// Route::view('/', 'page_login.login');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::resource('admin', 'App\Http\Controllers\C__dmin');
+});
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
