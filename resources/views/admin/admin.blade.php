@@ -1,5 +1,12 @@
 @extends('tamplate')
 
+@section('tittle', 'admin')
+@section('cssDataTable')
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
+@endsection
 
 
 @section('content-header')
@@ -19,75 +26,91 @@
 
 @section('content')
     <div class="content">
-      <div class="container-fluid">
+      <div class="container">
          <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
-                <span class="info-box-number">
-                  10
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
+        <div class="card">
+          <div class="card-header">
+              <a href="#" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#exampleModal"><b><i class="fa fa-plus" aria-hidden="true"></i>  TAMBAH DATA</b></a>
           </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
+          <div class="card-body"> 
+            <table id="TabelAdmin" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        
+    </table>
           </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-        <div class="row">
-            
-        </div>
-        <!-- /.row -->
+        
+  
       </div>
       <!-- /.container-fluid -->
     </div>
 @endsection
+
+@section('modal')
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Admin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="Email" name="email" class="form-control" id="Email" placeholder="input email.." required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name:</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="input name.." required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password:</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Input password.." required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+@section('JsDataTble')
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
+  <script type="text/javascript" class="init"></script>
+  <script>
+    
+      $('#TabelAdmin').DataTable({
+        processing : true,
+        serverSide : true,
+        ajax : {
+          url: "{{ url('admin') }}",
+          type: 'GET'
+        },
+        columns: [
+          {data:'name', name:'name'},
+          {data:'email', name:'email'},
+        ],
+        order: [[0, 'asc']]
+      });
+    
+
+
+  </script>
+@endsection
+

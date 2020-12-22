@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>@yield('tittle')</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('style/dist/css/adminlte.min.css') }}">
-  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  @yield('cssDataTable')
 </head>
 <!--
 `body` tag options:
@@ -72,7 +72,7 @@
                with font-awesome or any other icon font library -->
           <li  class="nav-header"><b>MAIN MENU</b></li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ url('dashboard') }}" class="nav-link">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 Dashboard
@@ -89,7 +89,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ asset('style/') }}./index.html" class="nav-link">
+                <a href="{{ url('admin') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Data Admin</p>
                 </a>
@@ -142,7 +142,9 @@
   </div>
   <!-- /.content-wrapper -->
 
- 
+  @yield('modal')
+
+  
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -164,13 +166,27 @@
 <script src="{{ asset('style/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE -->
 <script src="{{ asset('style/dist/js/adminlte.js') }}"></script>
-
-<!-- OPTIONAL SCRIPTS -->
-<script src="{{ asset('style/plugins/chart.js/Chart.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('style/dist/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('style/dist/js/pages/dashboard3.js') }}"></script>
 <script src="https://use.fontawesome.com/07815d291e.js"></script>
+@yield('JsDataTble')
+<script>
+  $(document).ready(function() {
+   $(function () {
+    
+    var table = $('#TabelAdmin').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('admin.index') }}",
+        columns: [
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  
+  
+} );
+</script>
 </body>
 </html>

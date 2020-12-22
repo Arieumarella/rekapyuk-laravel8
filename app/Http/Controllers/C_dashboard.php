@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Models\dashboard;
 use Illuminate\Http\Request;
 
-
-class C__dmin extends Controller
+class C_dashboard extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $data = Admin::all();
-        if ($request->ajax()) {
-
-            return datatables()->of($data)->make(true);
-        }
-
-        return view('admin/admin');
+        return view('dashboard.index');
     }
 
     /**
@@ -50,10 +41,10 @@ class C__dmin extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(dashboard $dashboard)
     {
         //
     }
@@ -61,10 +52,10 @@ class C__dmin extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(dashboard $dashboard)
     {
         //
     }
@@ -73,10 +64,10 @@ class C__dmin extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, dashboard $dashboard)
     {
         //
     }
@@ -84,10 +75,10 @@ class C__dmin extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(dashboard $dashboard)
     {
         //
     }

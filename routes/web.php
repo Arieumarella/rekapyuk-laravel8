@@ -25,6 +25,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('admin', 'App\Http\Controllers\C__dmin');
+    Route::resource('dashboard', 'App\Http\Controllers\C_dashboard');
 });
 
 
