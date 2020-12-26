@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class C__dmin extends Controller
@@ -20,7 +21,16 @@ class C__dmin extends Controller
         $data = Admin::all();
         if ($request->ajax()) {
 
-            return datatables()->of($data)->make(true);
+            return datatables()->of($data)
+                ->addIndexColumn()
+                ->addColumn('aksi', function ($row) {
+                    $btn = '<a href="javascript:void(0)" edit-admin="' . $row->id . '" class="btn btn-sm btn-success m-2 adminok"><i class="fa fa-pencil-square-o"></i></a>';
+
+                    $btn .= '<a href="javascript:void(0)" onclick="hapusAdmin(' . $row->id . ')" class="btn btn-sm btn-danger" id="test"><i class="fa fa-trash"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['aksi'])
+                ->make(true);
         }
 
         return view('admin/admin');
@@ -31,9 +41,8 @@ class C__dmin extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -44,7 +53,16 @@ class C__dmin extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Admin::updateOrCreate(
+            ['id' => $request->idx],
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]
+        );
+
+        return response()->json(['success' => 'Product saved successfully.']);
     }
 
     /**
@@ -64,9 +82,13 @@ class C__dmin extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit($id)
     {
-        //
+        $data = Admin::find($id);
+        if ($data) {
+            return response()->json($data);
+        }
+        return false;
     }
 
     /**
@@ -87,8 +109,10 @@ class C__dmin extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        //
+        Admin::find($id)->delete();
+
+        return response()->json(['success' => 'Customer deleted!']);
     }
 }

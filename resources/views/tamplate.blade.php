@@ -4,8 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('tittle')</title>
-
+  
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -14,7 +16,12 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('style/dist/css/adminlte.min.css') }}">
-  @yield('cssDataTable')
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
+  <link href="{{asset('pace/themes/black/pace-theme-flash.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('izi/dist/css/iziToast.min.css') }}">
 </head>
 <!--
 `body` tag options:
@@ -169,24 +176,59 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('style/dist/js/demo.js') }}"></script>
 <script src="https://use.fontawesome.com/07815d291e.js"></script>
-@yield('JsDataTble')
-<script>
-  $(document).ready(function() {
-   $(function () {
-    
-    var table = $('#TabelAdmin').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('admin.index') }}",
-        columns: [
-            {data: 'name', name: 'name'},
-            {data: 'email', name: 'email'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
+  <script type="text/javascript" class="init"></script>
+  <script data-pace-options='{ "restartOnRequestAfter": false  }' src="{{asset('pace/pace.js')}}"></script>
+  <script src="{{ asset('izi/dist/js/iziToast.min.js') }}" type="text/javascript"></script>
+
+  <script>
+
+    function successNotif(data) {
+      iziToast.success({
+      timeout: 3000,
+      position: 'topRight',
+      zindex: 99999999,
+      title: 'Success',
+      message: 'Berhasil Menyimpan data nih boor.!',
     });
-  
-  
-} );
-</script>
+    }
+
+    function errorNotif(data) {
+      iziToast.error({
+      timeout: 3000,
+      position: 'topRight',
+      zindex: 999999999,
+      title: 'Error',
+      message: 'Ada Yang salah nih Boor!',
+    });
+    }
+
+    function warningNotif(data) {
+      iziToast.warning({
+      timeout: 3000,
+      position: 'topRight',
+      zindex: 9999999,
+      title: 'Peringatan',
+      message: data,
+    });
+    }
+
+    function infoNotif(data) {
+      iziToast.warning({
+      timeout: 3000,
+      position: 'topRight',
+      zindex: 99999999,
+      title: 'Peringatan',
+      message: data,
+    });
+    }
+
+
+
+  </script>
+@yield('JsDataTble')
 </body>
 </html>
